@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery contentEditable WYSIWYG Editor</title>
+  
+    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Dosis|Candal'>
+
+    <link rel="stylesheet" href="css/style.css">
+    <style type="text/css">
+        [data-edit="true"] [contenteditable]{
+            box-shadow: 0 0 2px #CCC;
+        }
+        [data-edit="false"] [contenteditable]{
+            box-shadow: none;
+        }
+        #btnEdit{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        [data-edit="false"] .toolbar{
+            display: none;
+        }
+        #drag-n-drop{
+            display: block;
+            width: 100%;
+            height: 400px;
+            box-shadow: inset 1px 1px 3px rgba(0,0,0,.1);
+        }
+    </style>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script type="text/javascript">
+        var isEditOn = false;
+
+        function btnEdit() {
+            document.body.dataset.edit = isEditOn;
+
+            document.getElementById('editor').contentEditable = isEditOn;
+
+            isEditOn = !isEditOn;
+        }
+    </script>
+</head>
+
+<body data-edit="true">
+
+    <button id="btnEdit" onclick="btnEdit()"> Edit </button>
+
+    <div class="toolbar">
+    
+        <a href="#" data-command='undo'>
+            <i class='fa fa-undo'></i>
+        </a>
+
+        <a href="#" data-command='redo'>
+            <i class='fa fa-repeat'></i>
+        </a>
+
+        <div class="fore-wrapper">
+            <i class='fa fa-font' style='color:#C96;'></i>
+            <div class="fore-palette"></div>
+        </div>
+        <div class="back-wrapper">
+            <i class='fa fa-font' style='background:#C96;'></i>
+            <div class="back-palette">
+            </div>
+        </div>
+        <a href="#" data-command='bold'><i class='fa fa-bold'></i></a>
+        <a href="#" data-command='italic'><i class='fa fa-italic'></i></a>
+        <a href="#" data-command='underline'><i class='fa fa-underline'></i></a>
+        <a href="#" data-command='strikeThrough'><i class='fa fa-strikethrough'></i></a>
+        <a href="#" data-command='justifyLeft'><i class='fa fa-align-left'></i></a>
+        <a href="#" data-command='justifyCenter'><i class='fa fa-align-center'></i></a>
+        <a href="#" data-command='justifyRight'><i class='fa fa-align-right'></i></a>
+        <a href="#" data-command='justifyFull'><i class='fa fa-align-justify'></i></a>
+        <a href="#" data-command='indent'><i class='fa fa-indent'></i></a>
+        <a href="#" data-command='outdent'><i class='fa fa-outdent'></i></a>
+        <a href="#" data-command='insertUnorderedList'><i class='fa fa-list-ul'></i></a>
+        <a href="#" data-command='insertOrderedList'><i class='fa fa-list-ol'></i></a>
+        <a href="#" data-command='h1'>H1</a>
+        <a href="#" data-command='h2'>H2</a>
+        <a href="#" data-command='createlink'><i class='fa fa-link'></i></a>
+        <a href="#" data-command='unlink'><i class='fa fa-unlink'></i></a>
+        <a href="#" data-command='insertimage'><i class='fa fa-image'></i></a>
+        <a href="#" data-command='p'>P</a>
+        <a href="#" data-command='subscript'><i class='fa fa-subscript'></i></a>
+        <a href="#" data-command='superscript'><i class='fa fa-superscript'></i></a>
+    </div>
+
+    <div id='editor' contenteditable>
+        <h1>A WYSIWYG Editor.</h1>
+        <p>Try making some changes here. Add your own text or maybe an image.</p>
+    </div>
+
+  
+
+    <script  src="js/index.js"></script>
+    <script type="text/javascript">
+        var interval, intervalTime = 4000;
+        document
+            .getElementById('editor')
+            .addEventListener('keyup', function() {
+
+                var onUpdate = function(){
+                    console.log(document.getElementById('editor').innerHTML);
+                }
+
+                clearInterval(interval);
+                interval = setInterval(onUpdate, intervalTime);
+
+
+    }, false);
+    </script>  
+    <drag-n-drop id="drag-n-drop">
+        
+    </drag-n-drop>
+
+</body>
+</html>
